@@ -1,2 +1,2 @@
-# azureresume
+# azure-resume
 Azure resume site
