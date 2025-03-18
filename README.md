@@ -48,3 +48,8 @@ Azure resume site
 1. Deployed function app to another group then used move tool to move resources 
 2. If app is not fully deployed then you would be missing HTTP trigger and function itself in azure app. 
 3. run function locally if port is busy - func start --port 7072
+
+## How to 
+
+1. Right click on frontend folder and deploy to static site, it will asking for creating 
+azure storage account. 
