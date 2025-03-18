@@ -16,6 +16,11 @@ Azure resume site
 - added connection string as well
 - got azure function url and added to javascript file 
 - deployed forntend app to v2 storage account and it worked with counters. 
+- Azure CDN for low latency 
+- CI/CD create .github directory >worlflow > frontend.main.yml/backend
+-az ad sp create-for-rbac --name AzureResume --role contributor --scopes subscriptions/ddd46a73-d9f0-4223-a18d-1dd4c4b8c68c/resourceGroups/resumeapiyogdeep
+- created secret Azure_Credentials
+- added workflow to frontend -source azure
 
 ## Deployment Steps
 
