@@ -24,7 +24,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 });
 
 // const functionApi = 'http://localhost:7072/api/ResumeCounter';
-const functionApi ="https://resumeapiyogdeep.azurewebsites.net/api/ResumeCounter?code=JDnKptYRJSCJxCkYO3iUwYaz-zIY4h5VvORHW8Z1Iz53AzFuFxVHuw=="
+const functionApi ="resumeapiyogdeep.azurewebsites.net"
+// "https://resumeapiyogdeep.azurewebsites.net/api/ResumeCounter?code=JDnKptYRJSCJxCkYO3iUwYaz-zIY4h5VvORHW8Z1Iz53AzFuFxVHuw=="
 const getVisitCount = () => {
     console.log("Calling function API:", functionApi);
     fetch(functionApi).then(response => {
