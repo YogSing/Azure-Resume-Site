@@ -23,7 +23,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     getVisitCount();
 });
 
-const functionApi = 'http://localhost:7072/api/ResumeCounter';
+// const functionApi = 'http://localhost:7072/api/ResumeCounter';
+const functionApi ="https://azureresumeapi.azurewebsites.net/api/ResumeCounter?code=X-Gw-8_mgPaPEN3D1fjf0zVPo4i2B-y7EEIahnvy5_IFAzFukZIvhA==";
 
 const getVisitCount = () => {
     console.log("Calling function API:", functionApi);
