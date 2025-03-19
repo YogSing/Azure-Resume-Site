@@ -31,11 +31,20 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
                 });
             }     
   ```
+  # Deployed CosmosDB to store Counter data
 - Created CosmosDB Serverless DB on the Azure portal to store counter data.
     ![image](https://github.com/user-attachments/assets/1b2fb845-8bb4-4d93-a9b3-dd7c981aff03)
+# Deployed Azure Serverless Function
+- Deployed Azure Function locally under backend/API via Visual Studio
 
-- deployed azure function under backend api 
-- Ran the function locally successfully 
+  Link to Azure Documentation for detailed guide: https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-python
+
+- **How to run function locally**
+  ```
+  1. pip install -r requirements.txt
+  2. func start
+  3. func start --port 7072 (If local host 7071 is not available )  
+  ```
 - Create AzureResumeConnectionString in local.settings.json and update with cosmos db string
 - created code to make counter works on the local site 
 - linked frontend with backend so index.html can show site viewed count. 
