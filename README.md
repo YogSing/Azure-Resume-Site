@@ -1,10 +1,35 @@
-# azure-resume
-Azure resume site
+# Cloud Resume API with Azure 
+Cloud Resume API was created using a serverless Azure Function and Azure CosmosDB. 
 
-## First Steps 
+## A Step-by-step guide to this project.
 
-- Frontend folder contains the website. 
-- main.js contains visitor counter code. 
+- The frontend folder contains `HTML,CSS,and Javascript` files to run the frontend of the resume site. 
+- main.js contains JavaScript code to fetch the visit count from API and display it on the Webpage.
+  ```Js
+           window.addEventListener('DOMContentLoaded', (event) => {
+             console.log("DOM fully loaded and parsed");
+             getVisitCount();
+         });
+         
+         // const functionApi = 'http://localhost:7072/api/ResumeCounter';
+         const functionApi ="resumeapiyogdeep.azurewebsites.net"
+         // "https://resumeapiyogdeep.azurewebsites.net/api/ResumeCounter?code=JDnKptYRJSCJxCkYO3iUwYaz-zIY4h5VvORHW8Z1Iz53AzFuFxVHuw=="
+         const getVisitCount = () => {
+             console.log("Calling function API:", functionApi);
+             fetch(functionApi).then(response => {
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok ' + response.statusText);
+                 }
+                 return response.json();
+             }).then(response => {
+                 console.log("API response:", response);
+                 const count = response.count;
+                 document.getElementById("counter").innerText = count;
+             }).catch(function(error) {
+                 console.error("Error fetching counter:", error);
+                });
+            }
+  ```
 - Created Cosmos DB on Azure portal 
 - Create database, container and item field
 - deployed azure function under backend api 
