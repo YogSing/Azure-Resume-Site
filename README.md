@@ -3,6 +3,22 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
 
 ## A Step-by-step guide to this project.
 
+## Prerequisites
+
+1. **Install Azure Extensions**:
+   - Install the Azure Functions, Storage extension in Visual Studio Code.
+
+2. **Sign In to Azure**:
+   - Sign in to your Azure account in Visual Studio Code
+
+3. **Azure CLI**:
+   - Download the latest version of Azure CLI
+     
+4. **GitHub**:
+   - Setup GitHub Account
+   - Setup SSH Key
+   - Create a New Repo
+
 # Frontend
 - The frontend folder contains `HTML,CSS,and Javascript` files to run the frontend of the resume site. 
 - main.js contains JavaScript code to fetch the visit count from API and display it on the Webpage.
@@ -31,7 +47,7 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
                 });
             }     
   ```
-  # Deployed CosmosDB to store Counter data
+# Deployed CosmosDB to store Counter data
 - Created CosmosDB Serverless DB on the Azure portal to store counter data.
   
   **CosmosDb**
@@ -137,22 +153,13 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
   
     ![image](https://github.com/user-attachments/assets/51b51856-98cd-44ff-8515-8ef50414268a)
 
-- deployed frontend static app to v2 storage account and it worked with counters. 
-- Azure CDN for low latency 
-- CI/CD create .github directory >worlflow > frontend.main.yml/backend
--az ad sp create-for-rbac --name AzureResume --role contributor --scopes subscriptions/ddd46a73-d9f0-4223-a18d-1dd4c4b8c68c/resourceGroups/resumeapiyogdeep
-- created secret Azure_Credentials
-- added workflow to frontend -source azure
+- Add Azure Function app URL to Azure CDN under Storage account for low latency.(optional if low traffic site)
 
-## Deployment Steps
+# GitHub Actions CI/CD 
+- Deployed static site with **GitHub actions**
 
-### Prerequisites
-
-1. **Install Azure Functions Extension**:
-   - Install the Azure Functions extension in Visual Studio Code.
-
-2. **Sign In to Azure**:
-   - Sign in to your Azure account in Visual Studio Code.
+    A detailed guide on Microsoft Learn: https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-static-site-github-actions?tabs=openid
+     
 
 ### Deployment Process
 
@@ -170,11 +177,16 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
 5. **Select Resource Group**:
    - If you are creating a new Function App, you will be prompted to select or create a resource group. If you don't see the option to select a resource group, ensure you are following the correct steps and that you are signed in to Azure.
 
-## Lession learnt 
+## Lesson learnt 
 
-1. Deployed function app to another group then used move tool to move resources 
-2. If app is not fully deployed then you would be missing HTTP trigger and function itself in azure app. 
-3. run function locally if port is busy - func start --port 7072
+1. If you accidentally deployed the function app to another resource group then use the move tool to move resource groups via the Azure portal.  
+2. If the app is not fully deployed then you would be missing the HTTP trigger and function itself in the Azure app. Retry to deploy the app to Azure. 
+3. If running the function locally and the port is busy then you can use `func start --port 7072` cmd to switch port.
+4. When adding a secret on GitHub action then make sure to provide the client secret **value** not ID otherwise it would give a login error while running the GitHub workflow.
+5. Make note of all important cmds and secrets to avoid confusion.
+6. Make sure the extensionBundle version is up to date(`host.json`) to avoid binding errors.
+7. Requirements.txt should have all required libraries to support the project such as `azure-functions, azure-cosmos` 
+   
 
 ## How to 
 
