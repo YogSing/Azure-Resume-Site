@@ -1,6 +1,12 @@
 # Cloud Resume API with Azure 
 Cloud Resume API was created using a serverless Azure Function and Azure CosmosDB. 
 
+## Demo of Resume Site 
+**Website count is 73 in the below image and it gets increased each time when site gets refreshed or viewed**
+
+![image](https://github.com/user-attachments/assets/23596af9-0863-4309-a42d-e8cd5a453f12)
+
+
 ## A Step-by-step guide to this project.
 
 ## Prerequisites
@@ -185,10 +191,8 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
 4. When adding a secret on GitHub action then make sure to provide the client secret **value** not ID otherwise it would give a login error while running the GitHub workflow.
 5. Make note of all important cmds and secrets to avoid confusion.
 6. Make sure the extensionBundle version is up to date(`host.json`) to avoid binding errors.
-7. Requirements.txt should have all required libraries to support the project such as `azure-functions, azure-cosmos` 
+7. Requirements.txt should have all required libraries to support the project such as `azure-functions, azure-cosmos`
+
+## Author
+- Linkedin: [@YogdeepSingh](https://www.linkedin.com/in/yogdeep-singh5/)
    
-
-## How to 
-
-1. Right click on frontend folder and deploy to static site, it will asking for creating 
-azure storage account. 
