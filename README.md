@@ -33,6 +33,9 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
   ```
   # Deployed CosmosDB to store Counter data
 - Created CosmosDB Serverless DB on the Azure portal to store counter data.
+  
+  **CosmosDb**
+  
     ![image](https://github.com/user-attachments/assets/1b2fb845-8bb4-4d93-a9b3-dd7c981aff03)
 # Deployed Azure Serverless Function
 - Deployed Azure Function locally under backend/API via Visual Studio
@@ -46,16 +49,95 @@ Cloud Resume API was created using a serverless Azure Function and Azure CosmosD
   3. func start --port 7072 (If local host 7071 is not available )  
   ```
 - Create AzureResumeConnectionString in `local.settings.json` and update with **Azure CosmosDb String**
-  ![image](https://github.com/user-attachments/assets/fb3697b5-e283-4286-9fcd-26f24a52f476)
-  **Connection String is available under CosmosDb>Keys>Primary Connection String**
-  ![image](https://github.com/user-attachments/assets/bdbc535d-e07c-49cc-a485-fa1aeaa9ca2d)
- 
-- created code to make counter works on the local site 
-- linked frontend with backend so index.html can show site viewed count. 
-- Deployed local function to azure function 
-- added connection string as well
-- got azure function url and added to javascript file 
-- deployed forntend app to v2 storage account and it worked with counters. 
+  
+  **local.seetings.json**
+
+   ![image](https://github.com/user-attachments/assets/fb3697b5-e283-4286-9fcd-26f24a52f476)
+
+- **Connection String is available under CosmosDb>Keys>Primary Connection String**
+  
+  **Connection String**
+     ![image](https://github.com/user-attachments/assets/bdbc535d-e07c-49cc-a485-fa1aeaa9ca2d)
+
+- Added Python code to make counter works on the local site
+  ```py
+  try:
+        client = CosmosClient.from_connection_string(CONNECTION_STRING)
+        database = client.get_database_client(DATABASE_NAME)
+        collection = database.get_container_client(COLLECTION_NAME)
+        items = list(collection.query_items(
+            query="SELECT * FROM c WHERE c.id = '1'", #count removed
+            enable_cross_partition_query=True
+        ))
+        if len(items) > 0:
+            counter_item = items[0]
+            counter = counter_item['count']
+        else:
+            counter = 0
+    except Exception as e:
+        return func.HttpResponse(
+            json.dumps({"error": str(e)}),
+             status_code=500,
+             mimetype="application/json",
+             headers={"Access-Control-Allow-Origin": "*"}
+         )
+    # Increment the counter
+    counter += 1
+  # Update the database
+    try:
+        # Create a new item if it doesn't exist
+        if len(items) == 0:
+            new_item = {
+                "id": "count",
+                "count": counter
+            }
+            collection.create_item(new_item)
+        else:
+            # Update the existing item
+            counter_item['count'] = counter
+            collection.replace_item(counter_item['id'], counter_item)
+    except Exception as e:
+        return func.HttpResponse(
+             f"Error updating Cosmos DB: {e}",
+             status_code=500,
+             mimetype="application/json",
+             headers={"Access-Control-Allow-Origin": "*"}
+        )
+
+    # Return the updated count
+    return func.HttpResponse(
+         json.dumps({"count": counter}),
+         status_code=200,
+         mimetype="application/json",
+         headers={"Access-Control-Allow-Origin": "*"}
+     )
+  ```
+- Linked frontend site with azure function API so index.html can show viewed counter.
+  
+   **FunctionAPI under main.js**
+  ![image](https://github.com/user-attachments/assets/0ee0dffe-e5c0-4f46-abb6-58cc006ac11b)
+
+  
+- After successful testing, Deployed local azure function to Azure
+  ```
+  1. Az Login [verify subscription]
+  2. Press F1 and enter Azure Functions: Create Function App in Azure.
+  3. Provide name and selected requested variables like function name, resource group etc.
+  4. Once the function is created then app can be deployed to Azure
+  5. press F1 and select Azure Functions: Deploy to Function App.
+  6. Default Azure function app URL would be generated to test functionality. 
+  ```
+- Add Azure CosmosDB Connection String under Azure function ***Environment Variable**
+
+   ![image](https://github.com/user-attachments/assets/da2c5a56-200f-4f93-a4f7-b806e405408b)
+
+- Get a new Azure Function URL and replace the local URL with a new URL under the main.js file.
+- Deploy frontend static app to Azure Storage **V2 kind** account via Visual Studio
+   **Static app deployment**
+  
+    ![image](https://github.com/user-attachments/assets/51b51856-98cd-44ff-8515-8ef50414268a)
+
+- deployed frontend static app to v2 storage account and it worked with counters. 
 - Azure CDN for low latency 
 - CI/CD create .github directory >worlflow > frontend.main.yml/backend
 -az ad sp create-for-rbac --name AzureResume --role contributor --scopes subscriptions/ddd46a73-d9f0-4223-a18d-1dd4c4b8c68c/resourceGroups/resumeapiyogdeep
